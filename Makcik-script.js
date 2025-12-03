@@ -103,7 +103,6 @@ function confirmInformation() {
 
 function closeInfoModal() {
   document.getElementById("infoConfirmModal").style.display = "none";
-  // User can edit their information
 }
 
 const orderForm = document.getElementById("orderForm");
@@ -131,6 +130,11 @@ function updateTotalPrice() {
 if (orderItem) orderItem.addEventListener("change", updateTotalPrice);
 if (quantity) quantity.addEventListener("input", updateTotalPrice);
 
+function removeItem(index) {
+  cart.splice(index, 1); 
+  updateCart();
+}
+
 function updateCart() {
   const cartItemsDiv = document.getElementById("cartItems");
   const cartSummary = document.getElementById("cartSummary");
@@ -144,21 +148,25 @@ function updateCart() {
     let cartHTML = "";
     let subtotal = 0;
 
-    cart.forEach((item) => {
+    cart.forEach((item, index) => {
       const itemTotal = item.price * item.quantity;
       subtotal += itemTotal;
 
       cartHTML += `
-                <div class="cart-item">
+                <div class="cart-item" style="position: relative; padding-right: 30px;">
                     <h4>${item.name}</h4>
-                    <p>Qty: ${item.quantity} × ₱${
-        item.price
-      } = ₱${itemTotal}</p>
+                    <p>Qty: ${item.quantity} × ₱${item.price} = ₱${itemTotal}</p>
                     ${
                       item.notes
                         ? `<p style="font-size:0.85rem; opacity:0.8; font-style:italic;">Note: ${item.notes}</p>`
                         : ""
                     }
+                    <button 
+                        onclick="removeItem(${index})" 
+                        style="position: absolute; top: 10px; right: 5px; background: none; border: none; cursor: pointer; font-size: 1rem; color: #FFFFFF;" 
+                        title="Remove Item">
+                        ×
+                    </button>
                 </div>
             `;
     });
@@ -166,7 +174,7 @@ function updateCart() {
     cartItemsDiv.innerHTML = cartHTML;
 
     const deliveryFee = orderType.value === "pickup" ? 0 : 50;
-    deliveryFeeSpan.textContent = "₱" + deliveryFee;
+    if (deliveryFeeSpan) deliveryFeeSpan.textContent = "₱" + deliveryFee;
 
     document.getElementById("cartSubtotal").textContent = "₱" + subtotal;
     document.getElementById("cartGrandTotal").textContent =
