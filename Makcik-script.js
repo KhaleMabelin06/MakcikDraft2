@@ -13,7 +13,7 @@ const registerSuccess = document.getElementById("registerSuccess");
 const registerError = document.getElementById("registerError");
 
 let customerData = {};
-let tempCustomerData = {}; // For storing data before confirmation
+let tempCustomerData = {};
 let cart = [];
 
 function validateField(field, pattern) {
@@ -51,7 +51,6 @@ if (registerForm) {
       phoneValid &&
       addressValid
     ) {
-      // Store in temporary object first
       tempCustomerData = {
         firstName: firstName.value,
         lastName: lastName.value,
@@ -59,8 +58,6 @@ if (registerForm) {
         phone: phone.value,
         address: address.value,
       };
-
-      // Show confirmation modal with the data
       document.getElementById("confirmName").textContent = 
         tempCustomerData.firstName + " " + tempCustomerData.lastName;
       document.getElementById("confirmEmail").textContent = tempCustomerData.email;
@@ -76,13 +73,8 @@ if (registerForm) {
 }
 
 function confirmInformation() {
-  // Transfer temp data to actual customer data
   customerData = { ...tempCustomerData };
-
-  // Close modal
   document.getElementById("infoConfirmModal").style.display = "none";
-
-  // Show success message
   registerSuccess.style.display = "block";
   registerError.style.display = "none";
   registerForm.style.display = "none";
