@@ -647,7 +647,6 @@ textarea {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
 }
 
-/* Mobile responsiveness for iframes (map & Facebook) */
 .contact-grid iframe {
   max-width: 100%;
   border-radius: 8px;
@@ -815,7 +814,6 @@ footer {
   max-width: 550px;
 }
 
-/* Mobile responsiveness breakpoints */
 @media (max-width: 768px) {
   .contact-grid iframe {
     width: 100% !important;
@@ -831,12 +829,10 @@ footer {
     padding: 1.5rem;
   }
 
-  /* Specific fix for Google Maps iframe */
   .contact-grid iframe[src*="google.com/maps"] {
     height: 350px !important;
   }
 
-  /* Specific fix for Facebook iframe */
   .contact-grid iframe[src*="facebook.com"] {
     height: 400px !important;
   }
